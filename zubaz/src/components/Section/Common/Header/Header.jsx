@@ -114,16 +114,13 @@ const Header = ({ logoSrc }) => {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    try {
-      if (!user) {
-        const jwtStored = localStorage.getItem("accessToken");
+    if (typeof window !== "undefined") {
+      const jwtStored = localStorage.getItem("accessToken");
 
+      if (jwtStored) {
         const decoded = jwtDecode(jwtStored);
-
         setUser(decoded);
       }
-    } catch (error) {
-      console.log(error);
     }
   }, []);
 
