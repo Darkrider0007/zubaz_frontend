@@ -15,19 +15,27 @@
     "jwt-decode": "^4.0.0",
     "next": "14.2.2",
     "react": "^18",
+    "react-18-image-lightbox": "^5.1.4",
     "react-bootstrap": "^2.10.2",
     "react-countup": "^6.5.3",
     "react-dom": "^18",
     "react-fast-marquee": "^1.6.4",
+    "react-feather": "^2.0.10",
     "react-hook-form": "^7.53.0",
     "react-icons": "^5.1.0",
+    "react-modal-video": "^2.0.2",
     "react-player": "^2.16.0",
+    "react-scroll": "^1.9.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "zubuz": "file:"
   },
   "devDependencies": {
+    "@types/react-modal-video": "^1.2.3",
+    "@types/react-scroll": "^1.8.10",
     "eslint": "^8",
-    "eslint-config-next": "14.2.2"
+    "eslint-config-next": "14.2.2",
+    "i": "^0.3.7",
+    "npm": "^10.8.3"
   }
 }
