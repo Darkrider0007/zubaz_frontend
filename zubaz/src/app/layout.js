@@ -4,6 +4,7 @@ import "~/assets/css/app.css";
 import "~/assets/css/main.css";
 import "~/assets/css/react-adjustment.css";
 import UserContextProvider from "~/context/UserContextProvider";
+import "../assets/scss/themes.scss";
 
 export const inter = Inter({
   subsets: ["latin"],

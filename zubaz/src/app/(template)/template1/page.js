@@ -14,19 +14,33 @@ import {
   NavItem,
 } from "reactstrap";
 
-import * as Icon from "react-feather";
-import { Link } from "react-scroll";
-import { Link as Link2 } from "react-router-dom";
+import {
+  Menu,
+  Video,
+  Heart,
+  ShoppingCart,
+  Dribbble,
+  Linkedin,
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail as Envelope,
+  File,
+  Camera,
+  ArrowUp,
+} from "react-feather";
+
+import { Link as Link2 } from "react-scroll";
+import Link from "next/link";
 import Lightbox from "react-18-image-lightbox";
 import "react-18-image-lightbox/style.css";
 
 // Modal Video
 import ModalVideo from "react-modal-video";
-import "../../../node_modules/react-modal-video/scss/modal-video.scss";
-i;
-import AgencyFeature from "../../component/AgencyFeature";
-import AgencyProject from "../../component/AgencyProject";
-import Review from "../../component/Review";
+import "react-modal-video/scss/modal-video.scss";
+
+import AgencyFeature from "~/components/Section/Template1/AgencyFeature";
+// import Review from "../../../components/Section/Template1/Review";
 
 import BackgroundImage1 from "../../../assets/images/bg/5.jpg";
 import AmazonImage from "../../../assets/images/client/amazon.svg";
@@ -64,21 +78,17 @@ const images = [
   Image9,
 ];
 
-export default function Agency() {
+const Agency = () => {
   const [isMenuOpen, setMenu] = useState(true);
   const [videoModal, setVideoModal] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [filterPortfolio, setFilterPortfolio] = useState(null);
-
   const [arrow, setArrow] = useState(false);
   const [iscontact, contactModal] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
   const handleScroll = () => {
-    if (
-      document.body.scrollTop >= 500 ||
-      document.documentElement.scrollTop >= 500
-    ) {
+    if (window.scrollY >= 500) {
       setArrow(true);
     } else {
       setArrow(false);
@@ -86,36 +96,12 @@ export default function Agency() {
   };
 
   const portfolioList = [
-    {
-      image: Image1,
-      title: "Iphone mockup",
-      subtext: "Branding",
-    },
-    {
-      image: Image2,
-      title: "Iphone mockup",
-      subtext: "Designing",
-    },
-    {
-      image: Image3,
-      title: "Iphone mockup",
-      subtext: "Branding",
-    },
-    {
-      image: Image4,
-      title: "Iphone mockup",
-      subtext: "Photography",
-    },
-    {
-      image: Image5,
-      title: "Iphone mockup",
-      subtext: "Development",
-    },
-    {
-      image: Image6,
-      title: "Iphone mockup",
-      subtext: "Development",
-    },
+    { image: Image1, title: "Iphone mockup", subtext: "Branding" },
+    { image: Image2, title: "Iphone mockup", subtext: "Designing" },
+    { image: Image3, title: "Iphone mockup", subtext: "Branding" },
+    { image: Image4, title: "Iphone mockup", subtext: "Photography" },
+    { image: Image5, title: "Iphone mockup", subtext: "Development" },
+    { image: Image6, title: "Iphone mockup", subtext: "Development" },
   ];
 
   const matchsubtext = (subtext) => {
@@ -128,10 +114,7 @@ export default function Agency() {
 
   const windowScroll = () => {
     const navbar = document.getElementById("navbar");
-    if (
-      document.body.scrollTop >= 50 ||
-      document.documentElement.scrollTop >= 50
-    ) {
+    if (window.scrollY >= 50) {
       navbar.classList.add("nav-sticky");
     } else {
       navbar.classList.remove("nav-sticky");
@@ -145,6 +128,7 @@ export default function Agency() {
   const toggleMenu = () => {
     setMenu(!isMenuOpen);
   };
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("scroll", windowScroll);
@@ -158,80 +142,70 @@ export default function Agency() {
   return (
     <>
       <div>
-        {/* <ScrollTo> */}
         <nav
           id="navbar"
           className="navbar navbar-expand-lg nav-light fixed-top sticky">
           <div className="container">
-            <NavbarBrand className="navbar-brand" href="/">
+            <NavbarBrand href="/">
               <span className="logo-light-mode">
-                <img src={Logolight} className="l-light" alt="" />
-                <img src={Logodark} className="l-dark" alt="" />
+                <img src={Logolight} alt="" />
+                <img src={Logodark} alt="" />
               </span>
-              <img src={Logolight} className="logo-dark-mode" alt="" />
+              <img src={Logolight} alt="" />
             </NavbarBrand>
             <NavbarToggler onClick={toggleMenu}>
-              <Icon.Menu />
+              <Menu />
             </NavbarToggler>
 
             <Collapse
-              className={`navbar-collapse ${
-                isMenuOpen === true ? "hidden" : "show"
-              }`}
-              id="navbarSupportedContent">
+              className={`navbar-collapse ${isMenuOpen ? "hidden" : "show"}`}>
               <Nav
                 className="navbar-nav ms-auto mb-2 mb-lg-0"
                 id="navbar-navlist">
                 <NavItem>
-                  <Link
+                  <Link2
                     activeClass="active"
                     to="home"
-                    spy={true}
-                    smooth={true}
+                    spy
+                    smooth
                     duration={500}
                     className="nav-link">
                     Home
-                  </Link>
+                  </Link2>
                 </NavItem>
                 <NavItem>
-                  <Link
+                  <Link2
                     activeClass="active"
                     to="feature"
-                    spy={true}
-                    smooth={true}
+                    spy
+                    smooth
                     duration={500}
                     className="nav-link">
                     Features
-                  </Link>
+                  </Link2>
                 </NavItem>
                 <NavItem>
-                  <Link
+                  <Link2
                     activeClass="active"
                     to="portfolio"
-                    spy={true}
-                    smooth={true}
+                    spy
+                    smooth
                     duration={500}
                     className="nav-link">
                     Product
-                  </Link>
+                  </Link2>
                 </NavItem>
                 <NavItem>
-                  <Link
+                  <Link2
                     activeClass="active"
                     to="review"
-                    spy={true}
-                    smooth={true}
+                    spy
+                    smooth
                     duration={500}
                     className="nav-link">
                     Testimonial
-                  </Link>
+                  </Link2>
                 </NavItem>
-                {/* <NavItem>
-                                    <Link activeClass="active" to="team" spy={true} smooth={true} duration={500} className="nav-link">Team</Link>
-                                </NavItem> */}
-                {/* <NavItem>
-                                    <Link activeClass="active" to="blog" spy={true} smooth={true} duration={500} className="nav-link">News</Link>
-                                </NavItem> */}
                 <NavItem>
                   <Link2
                     className="nav-link"
@@ -252,12 +226,11 @@ export default function Agency() {
             </Collapse>
           </div>
         </nav>
+
         <Modal isOpen={iscontact} toggle={() => contactModal(!iscontact)}>
           <ModalHeader>Contact Us</ModalHeader>
           <ModalBody>
             <form method="post" name="myForm">
-              <p id="error-msg" className="mb-0"></p>
-              <div id="simple-msg"></div>
               <div className="row">
                 <div className="col-md-6">
                   <div className="mb-3">
@@ -265,50 +238,36 @@ export default function Agency() {
                       Your Name <span className="text-danger">*</span>
                     </label>
                     <input
-                      name="name"
-                      id="name"
                       type="text"
                       className="form-control"
                       placeholder="Name :"
                     />
                   </div>
                 </div>
-
                 <div className="col-md-6">
                   <div className="mb-3">
                     <label className="form-label fw-normal">
                       Your Email <span className="text-danger">*</span>
                     </label>
                     <input
-                      name="email"
-                      id="email"
                       type="email"
                       className="form-control"
                       placeholder="Email :"
                     />
                   </div>
                 </div>
-
                 <div className="col-12">
                   <div className="mb-3">
                     <label className="form-label fw-normal">Subject</label>
-                    <input
-                      name="subject"
-                      id="subject"
-                      className="form-control"
-                      placeholder="subject :"
-                    />
+                    <input className="form-control" placeholder="Subject :" />
                   </div>
                 </div>
-
                 <div className="col-12">
                   <div className="mb-3">
                     <label className="form-label fw-normal">
                       Comments <span className="text-danger">*</span>
                     </label>
                     <textarea
-                      name="comments"
-                      id="comments"
                       rows={4}
                       className="form-control"
                       placeholder="Message :"></textarea>
@@ -317,15 +276,11 @@ export default function Agency() {
               </div>
               <div className="row">
                 <div className="col-12">
-                  <div className="d-grid">
-                    <button
-                      type="submit"
-                      id="submit"
-                      name="send"
-                      className="btn btn-primary">
-                      Send Message
-                    </button>
-                  </div>
+                  <button
+                    type="submit"
+                    className="btn btn-primary d-block w-100">
+                    Send Message
+                  </button>
                 </div>
               </div>
             </form>
@@ -334,7 +289,7 @@ export default function Agency() {
 
         <section
           className="bg-home d-flex align-items-center"
-          style={{ background: `url(${BackgroundImage1})` }}
+          style={{ background: `url(${BackgroundImage1.src})` }}
           id="home">
           <div className="bg-overlay bg-linear-gradient-3"></div>
           <Container>
@@ -342,12 +297,11 @@ export default function Agency() {
               <Col>
                 <div className="title-heading">
                   <h1 className="heading text-white title-dark mb-4">
-                    Bluid your audiance <br /> and sale more
+                    Build your audience <br /> and sell more
                   </h1>
                   <p className="para-desc text-white-50">
                     Launch your campaign and benefit from our expertise on
-                    designing and managing conversion centered bootstrap v5 html
-                    page.
+                    designing and managing conversion-centered campaigns.
                   </p>
                   <div className="mt-4 pt-2">
                     <Link2 to="#" className="btn btn-primary m-1">
@@ -359,7 +313,7 @@ export default function Agency() {
                       data-id="yba7hPeTSjk"
                       onClick={openModal}
                       className="btn btn-icon btn-pills btn-primary m-1 lightbox">
-                      <Icon.Video className="icons" />
+                      <Video className="icons" />
                     </Link2>
                     <span className="text-uppercase text-white-50 small align-middle ms-2">
                       Watch Now
@@ -370,16 +324,15 @@ export default function Agency() {
             </Row>
           </Container>
         </section>
-        {/* end section */}
 
         <section className="section">
           <Container>
-            <div style={{ background: `url(${MapImage}) center center` }}>
+            <div style={{ background: `url(${MapImage.src}) center center` }}>
               <Row className="align-items-center">
                 <Col lg={6} md={6}>
                   <div className="position-relative me-lg-5">
                     <img
-                      src={AboutImage}
+                      src={AboutImage.src}
                       className="rounded img-fluid mx-auto d-block"
                       alt=""
                     />
@@ -449,10 +402,7 @@ export default function Agency() {
         </section>
 
         {/* Feature start */}
-
         <AgencyFeature />
-
-        {/* <AgencyProject /> */}
 
         <Container className="mt-100 mt-60" id="portfolio">
           <Row className="justify-content-center">
@@ -462,16 +412,14 @@ export default function Agency() {
                   <li
                     className={`${
                       filterPortfolio === "All" ? "active" : ""
-                    } list-inline-item categories h6 position-relative text-dark active`}
-                    data-group="all"
+                    } list-inline-item categories h6 position-relative text-dark`}
                     onClick={() => matchsubtext("All")}>
                     All
                   </li>
                   <li
                     className={`${
                       filterPortfolio === "Branding" ? "active" : ""
-                    }  list-inline-item categories h6 position-relative text-dark`}
-                    data-group="branding"
+                    } list-inline-item categories h6 position-relative text-dark`}
                     onClick={() => matchsubtext("Branding")}>
                     Branding
                   </li>
@@ -479,7 +427,6 @@ export default function Agency() {
                     className={`${
                       filterPortfolio === "Designing" ? "active" : ""
                     } list-inline-item categories h6 position-relative text-dark`}
-                    data-group="designing"
                     onClick={() => matchsubtext("Designing")}>
                     Designing
                   </li>
@@ -487,7 +434,6 @@ export default function Agency() {
                     className={`${
                       filterPortfolio === "Photography" ? "active" : ""
                     } list-inline-item categories h6 position-relative text-dark`}
-                    data-group="photography"
                     onClick={() => matchsubtext("Photography")}>
                     Photography
                   </li>
@@ -495,7 +441,6 @@ export default function Agency() {
                     className={`${
                       filterPortfolio === "Development" ? "active" : ""
                     } list-inline-item categories h6 position-relative text-dark`}
-                    data-group="development"
                     onClick={() => matchsubtext("Development")}>
                     Development
                   </li>
@@ -504,7 +449,7 @@ export default function Agency() {
             </div>
           </Row>
 
-          <Row id="grid" className=" g-4">
+          <Row className="g-4">
             {filterData.map((item, index) => (
               <div
                 className="col-lg-4 col-md-6 col-12 picture-item"
@@ -512,7 +457,7 @@ export default function Agency() {
                 <div className="card border-0 project project-primary position-relative d-block overflow-hidden rounded">
                   <div className="card-body p-0">
                     <img
-                      src={item.image}
+                      src={item.image.src}
                       className="img-fluid"
                       alt="workimage"
                     />
@@ -530,7 +475,7 @@ export default function Agency() {
                         to="#"
                         onClick={() => setIsOpen(true)}
                         className="btn btn-icon btn-pills lightbox">
-                        <Icon.Camera className="fea icon-sm image-icon" />
+                        <Camera className="fea icon-sm image-icon" />
                       </Link2>
                     </div>
                   </div>
@@ -538,6 +483,7 @@ export default function Agency() {
               </div>
             ))}
           </Row>
+
           {isOpen && (
             <Lightbox
               mainSrc={images[photoIndex]}
@@ -563,16 +509,13 @@ export default function Agency() {
         </Container>
 
         {/* Project start */}
-        <Review />
+        {/* <Review /> */}
 
-        {/* Pricing  */}
-        {/* <Pricing /> */}
-
-        {/* CTA Start  */}
+        {/* CTA Start */}
         <section
           className="section"
           data-jarallax='{"speed": 0.5}'
-          style={{ background: `url(${CTAImage}) center` }}>
+          style={{ background: `url(${CTAImage.src}) center` }}>
           <div className="bg-overlay"></div>
           <div className="container">
             <div className="row justify-content-center">
@@ -583,10 +526,8 @@ export default function Agency() {
                   </h4>
                   <p className="text-white-50 mx-auto para-desc mb-0">
                     Launch your campaign and benefit from our expertise on
-                    designing and managing conversion centered bootstrap v5 html
-                    page.
+                    designing and managing conversion-centered bootstrap pages.
                   </p>
-
                   <div className="mt-4 pt-2">
                     <Link2 to="#" className="btn btn-primary">
                       Get Started !
@@ -597,11 +538,7 @@ export default function Agency() {
             </div>
           </div>
         </section>
-        {/* CTA End  */}
-
-        {/* <AgencyTeam /> */}
-
-        {/* <News /> */}
+        {/* CTA End */}
 
         {/* Footer Start */}
         <footer className="bg-footer">
@@ -611,51 +548,27 @@ export default function Agency() {
                 <div className="py-4">
                   <div className="row justify-content-center">
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={AmazonImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={AmazonImage} alt="" />
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={GoogleImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={GoogleImage} alt="" />
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={LenovoImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={LenovoImage} alt="" />
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={PaypalImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={PaypalImage} alt="" />
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={ShopifyImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={ShopifyImage} alt="" />
                     </div>
 
                     <div className="col-lg-2 col-md-2 col-6 text-center py-4">
-                      <img
-                        src={SpotifyImage}
-                        className="avatar avatar-ex-sm"
-                        alt=""
-                      />
+                      <img src={SpotifyImage} alt="" />
                     </div>
                   </div>
                 </div>
@@ -670,7 +583,7 @@ export default function Agency() {
                   <div className="text-sm-start">
                     <p className="mb-0">
                       © {new Date().getFullYear()} Motos. Design with{" "}
-                      <i className="mdi mdi-heart text-danger"></i> by{" "}
+                      <Heart className="text-danger" /> by{" "}
                       <Link2 to="#" className="text-reset">
                         Shreethemes
                       </Link2>
@@ -683,61 +596,48 @@ export default function Agency() {
                   <ul className="list-unstyled social-icon text-sm-end foot-social-icon mb-0">
                     <li className="list-inline-item">
                       <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-shopping-cart align-middle"
-                          title="Buy Now"></i>
+                        <ShoppingCart title="Buy Now" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-dribbble align-middle"
-                          title="dribbble"></i>
+                        <Dribbble title="dribbble" />
+                      </Link2>
+                    </li>
+                    <li className="list-inline-item ms-1">
+                      {/* <Link2 to="#" className="rounded">
+                        {/* <Behance title="Behance" /> */}
+                      {/* <FontAwesomeIcon icon="fa-brands fa-behance" /> */}
+                      {/* </Link2> */}
+                    </li>
+                    <li className="list-inline-item ms-1">
+                      <Link2 to="#" className="rounded">
+                        <Linkedin title="Linkedin" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i className="uil uil-behance" title="Behance"></i>
+                        <Facebook title="facebook" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i className="uil uil-linkedin" title="Linkedin"></i>
+                        <Instagram title="instagram" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-facebook-f align-middle"
-                          title="facebook"></i>
+                        <Twitter title="twitter" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-instagram align-middle"
-                          title="instagram"></i>
+                        <Envelope title="email" />
                       </Link2>
                     </li>
                     <li className="list-inline-item ms-1">
                       <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-twitter align-middle"
-                          title="twitter"></i>
-                      </Link2>
-                    </li>
-                    <li className="list-inline-item ms-1">
-                      <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-envelope align-middle"
-                          title="email"></i>
-                      </Link2>
-                    </li>
-                    <li className="list-inline-item ms-1">
-                      <Link2 to="#" className="rounded">
-                        <i
-                          className="uil uil-file align-middle"
-                          title="customization"></i>
+                        <File title="customization" />
                       </Link2>
                     </li>
                   </ul>
@@ -746,24 +646,27 @@ export default function Agency() {
             </div>
           </div>
         </footer>
-        {/* Footer End  */}
+
         {/* Back to top */}
         <Link
-          to="home"
-          style={{ display: arrow === true ? "block" : "none" }}
+          // to="home"
+          href={""}
+          style={{ display: arrow ? "block" : "none" }}
           id="back-to-top"
           className="back-to-top rounded-pill fs-5">
-          <Icon.ArrowUp className="fea icon-sm icons align-middle" />
+          <ArrowUp className="fea icon-sm icons align-middle" />
         </Link>
-        {/* Back to top  */}
+
+        {/* Popup Video */}
+        <ModalVideo
+          channel="youtube"
+          isOpen={videoModal}
+          videoId="yba7hPeTSjk"
+          onClose={() => setVideoModal(false)}
+        />
       </div>
-      {/* popup video */}
-      <ModalVideo
-        channel="youtube"
-        isOpen={videoModal}
-        videoId="yba7hPeTSjk"
-        onClose={() => setVideoModal(false)}
-      />
     </>
   );
-}
+};
+
+export default Agency;
