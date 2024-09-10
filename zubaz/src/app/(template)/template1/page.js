@@ -39,7 +39,7 @@ import "react-18-image-lightbox/style.css";
 import ModalVideo from "react-modal-video";
 import "react-modal-video/scss/modal-video.scss";
 
-import AgencyFeature from "~/components/Section/Template1/AgencyFeature";
+import AgencyFeature from "../../../components/Section/Template1/AgencyFeature";
 // import Review from "../../../components/Section/Template1/Review";
 
 import BackgroundImage1 from "../../../assets/images/bg/5.jpg";
