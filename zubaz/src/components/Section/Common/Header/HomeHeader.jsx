@@ -137,7 +137,6 @@ const HomeHeader = ({ logoSrc, roundedBtn }) => {
       const decoded = jwtDecode(jwtStored);
 
       if (decoded.exp > Date.now() / 1000) {
-        console.log(decoded);
         setUser(decoded);
       } else {
         setUser(null);
