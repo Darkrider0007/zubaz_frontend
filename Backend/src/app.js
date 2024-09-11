@@ -3,7 +3,17 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "http://localhost:3000", // For local development
+    "https://zubaz-frontend-git-main-rohan-gopes-projects-8c7bd45a.vercel.app", // Add your Vercel domain
+  ],
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
