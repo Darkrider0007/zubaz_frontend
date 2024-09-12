@@ -1,33 +1,42 @@
-// middleware.ts
-
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const url = req.headers.get("host");
-  console.log(url);
+  const url = req.headers.get("host") || "";
+  const { pathname } = req.nextUrl;
 
-  const subDomains = url.split(".")[0];
+  console.log(req.nextUrl);
 
-  console.log(subDomains);
+  console.log(`Request URL: ${url}`);
+  console.log(`Request Pathname: ${pathname}`);
 
-  if (subDomains !== "zubaz-frontend" && subDomains !== "localhost:3000") {
-    const newUrl = req.nextUrl.clone();
-    newUrl.pathname = `/${subDomains}`;
-    return NextResponse.rewrite(newUrl);
+  // Remove 'www' subdomain if present
+  const subDomains = url.startsWith("www.")
+    ? url.split(".")[1]
+    : url.split(".")[0];
+
+  // List of paths to ignore from subdomain logic
+  const ignorePaths = [
+    "/favicon.ico",
+    "/login",
+    "/register",
+    "/something-else",
+  ];
+
+  // If path matches any of the ignored paths, proceed normally
+  if (ignorePaths.some((ignorePath) => pathname.startsWith(ignorePath))) {
+    console.log("Ignoring path");
+    return NextResponse.next();
   }
 
-  // const hostname = req.nextUrl.hostname;
+  // If on localhost or valid subdomain, proceed without rewriting
+  if (subDomains === "localhost:3000" || subDomains === "asrtechsolution") {
+    return NextResponse.next();
+  }
 
-  // // Extract subdomain from the hostname
-  // const subdomain = hostname.split(".")[0];
+  console("Not ignored path");
 
-  // // If it's not localhost and there is a subdomain (e.g., test.localhost)
-  // if (hostname !== "localhost" && subdomain !== "localhost") {
-  //   // Rewrite to the dynamic subdomain route
-  //   const url = req.nextUrl.clone();
-  //   url.pathname = `/${subdomain}`; // Map to /[subdomain] page
-  //   return NextResponse.rewrite(url);
-  // }
-
-  return NextResponse.next(); // Proceed normally for non-subdomains
+  // For other subdomains, rewrite the pathname
+  const newUrl = req.nextUrl.clone();
+  newUrl.pathname = `/${subDomains}${pathname}`;
+  return NextResponse.rewrite(newUrl);
 }
