@@ -10,10 +10,7 @@ export function middleware(req) {
 
   console.log(subDomains);
 
-  if (
-    subDomains !== process.env.BASE_DOMAIN &&
-    subDomains !== "localhost:3000"
-  ) {
+  if (subDomains !== "zubaz-frontend" && subDomains !== "localhost:3000") {
     const newUrl = req.nextUrl.clone();
     newUrl.pathname = `/${subDomains}`;
     return NextResponse.rewrite(newUrl);
