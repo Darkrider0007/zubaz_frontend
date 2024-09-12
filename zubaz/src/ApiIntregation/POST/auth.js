@@ -36,7 +36,7 @@ export const loginApiIntegration = async (data) => {
 export const selectTemplateApiIntegration = async (data) => {
   const url = `${BASE_URL}/userRouter/selectTemplate`;
   try {
-    const response = await axios.put(url, data, {
+    const response = await axios.post(url, data, {
       headers: {
         token: `Bearer ${localStorage.getItem("accessToken")}`,
       },
