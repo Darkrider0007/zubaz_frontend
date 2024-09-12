@@ -4,10 +4,10 @@ export function middleware(req) {
   const url = req.headers.get("host") || "";
   const { pathname } = req.nextUrl;
 
-  console.log(req.nextUrl);
+  // console.log(req.nextUrl);
 
-  console.log(`Request URL: ${url}`);
-  console.log(`Request Pathname: ${pathname}`);
+  // console.log(`Request URL: ${url}`);
+  // console.log(`Request Pathname: ${pathname}`);
 
   // Remove 'www' subdomain if present
   const subDomains = url.startsWith("www.")
@@ -32,8 +32,6 @@ export function middleware(req) {
   if (subDomains === "localhost:3000" || subDomains === "asrtechsolution") {
     return NextResponse.next();
   }
-
-  console("Not ignored path");
 
   // For other subdomains, rewrite the pathname
   const newUrl = req.nextUrl.clone();
