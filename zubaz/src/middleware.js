@@ -3,6 +3,22 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
+  const url = req.headers.get("host");
+  console.log(url);
+
+  const subDomains = url.split(".")[0];
+
+  console.log(subDomains);
+
+  if (
+    subDomains !== process.env.BASE_DOMAIN &&
+    subDomains !== "localhost:3000"
+  ) {
+    const newUrl = req.nextUrl.clone();
+    newUrl.pathname = `/${subDomains}`;
+    return NextResponse.rewrite(newUrl);
+  }
+
   const hostname = req.nextUrl.hostname;
 
   // Extract subdomain from the hostname
