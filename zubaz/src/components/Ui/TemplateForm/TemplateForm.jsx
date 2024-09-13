@@ -278,7 +278,7 @@ export default function TemplateForm({ templateID }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/template/addTemplate",
+        "https://zubaz-frontend.onrender.com/api/v1/template/addTemplate",
         formDataToSubmit,
         {
           headers: {
@@ -463,8 +463,7 @@ export default function TemplateForm({ templateID }) {
                       name="category"
                       value={card.category}
                       onChange={(e) => handleProjectCardChange(index, e)}
-                      className="mb-2"
-                    >
+                      className="mb-2">
                       <option value="">Select a category</option>
                       <option value="Branding">Branding</option>
                       <option value="Designing">Designing</option>
@@ -490,8 +489,7 @@ export default function TemplateForm({ templateID }) {
                 name="rating"
                 value={testimonial.rating}
                 onChange={(e) => handleTestimonialChange(index, e)}
-                className="mb-2"
-              >
+                className="mb-2">
                 <option value="">Select a rating</option>
                 <option value="1">1 - Poor</option>
                 <option value="2">2 - Fair</option>
@@ -518,8 +516,7 @@ export default function TemplateForm({ templateID }) {
               <Button
                 variant="danger"
                 onClick={() => removeTestimonial(index)}
-                className="mb-3"
-              >
+                className="mb-3">
                 Remove Testimonial {index + 1}
               </Button>
             )}
@@ -640,8 +637,7 @@ export default function TemplateForm({ templateID }) {
                     <Button
                       variant="danger"
                       onClick={() => removeNewsCard(index)}
-                      className="mb-3"
-                    >
+                      className="mb-3">
                       Remove News Card
                     </Button>
                   )}
