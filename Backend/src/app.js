@@ -34,5 +34,6 @@ app.use("/api/v1/template", templateRoute);
 
 // http://localhost:8000/api/v1/healthCheck/
 // http://localhost:8000/api/v1/userRouter/register
+// http://localhost:8000/api/v1/template
 
 export { app };

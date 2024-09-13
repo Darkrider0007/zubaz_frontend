@@ -4,15 +4,13 @@ export function middleware(req) {
   const url = req.headers.get("host") || "";
   const { pathname } = req.nextUrl;
 
-  // console.log(req.nextUrl);
+  // Remove 'www.' prefix and port number if present
+  const host = url.startsWith("www.") ? url.substring(4) : url;
+  const hostWithoutPort = host.split(":")[0]; // Remove port number
 
-  // console.log(`Request URL: ${url}`);
-  // console.log(`Request Pathname: ${pathname}`);
-
-  // Remove 'www' subdomain if present
-  const subDomains = url.startsWith("www.")
-    ? url.split(".")[1]
-    : url.split(".")[0];
+  // Extract subdomain
+  const subDomains = hostWithoutPort.split(".");
+  const subDomain = subDomains.length > 1 ? subDomains[0] : null;
 
   // List of paths to ignore from subdomain logic
   const ignorePaths = [
@@ -20,21 +18,27 @@ export function middleware(req) {
     "/login",
     "/register",
     "/something-else",
+    "/_next/", // Added to ignore static assets
+    "/api/", // Added to ignore API routes
   ];
 
   // If path matches any of the ignored paths, proceed normally
   if (ignorePaths.some((ignorePath) => pathname.startsWith(ignorePath))) {
-    console.log("Ignoring path");
     return NextResponse.next();
   }
 
-  // If on localhost or valid subdomain, proceed without rewriting
-  if (subDomains === "localhost:3000" || subDomains === "asrtechsolution") {
+  // If on main domain or localhost, proceed without rewriting
+  if (
+    !subDomain ||
+    subDomain === "localhost" ||
+    subDomain === "asrtechsolution"
+  ) {
     return NextResponse.next();
   }
 
   // For other subdomains, rewrite the pathname
   const newUrl = req.nextUrl.clone();
-  newUrl.pathname = `/${subDomains}${pathname}`;
+  newUrl.pathname = `/${subDomain}${pathname}`;
+  console.log("Rewriting to:", newUrl.pathname);
   return NextResponse.rewrite(newUrl);
 }

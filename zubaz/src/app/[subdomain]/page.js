@@ -1,22 +1,4 @@
 "use client";
-// export async function generateStaticParams() {
-//   const subdomains = ["sub1", "sub2", "sub3"]; // Replace with your subdomains or fetch from an API
-
-//   return subdomains.map((subdomain) => ({
-//     subdomain,
-//   }));
-// }
-
-// export default function SubdomainPage({ params }) {
-//   const { subdomain } = params;
-//   return (
-//     <div>
-//       <h1>Subdomain: {subdomain}</h1>
-//       <p>Content for {subdomain}.yourdomain.com</p>
-//     </div>
-//   );
-// }
-
 import React, { useState, useEffect } from "react";
 import {
   Col,
@@ -52,14 +34,10 @@ import { Link as Link2 } from "react-scroll";
 import Link from "next/link";
 import Lightbox from "react-18-image-lightbox";
 import "react-18-image-lightbox/style.css";
-
-// Modal Video
 import ModalVideo from "react-modal-video";
 import "react-modal-video/scss/modal-video.scss";
 
 import AgencyFeature from "../../components/Section/Template1/AgencyFeature.js";
-// import Review from "../../../components/Section/Template1/Review";
-
 import BackgroundImage1 from "../../assets/images/bg/5.jpg";
 import AmazonImage from "../../assets/images/client/amazon.svg";
 import GoogleImage from "../../assets/images/client/google.svg";
@@ -72,7 +50,6 @@ import AboutImage from "../../assets/images/about.jpg";
 import CTAImage from "../../assets/images/bg/cta.png";
 import Logodark from "../../assets/images/logo-dark.png";
 import Logolight from "../../assets/images/logo-light.png";
-
 import Image1 from "../../assets/images/portfolio/11.jpg";
 import Image2 from "../../assets/images/portfolio/12.jpg";
 import Image3 from "../../assets/images/portfolio/13.jpg";
@@ -82,14 +59,8 @@ import Image6 from "../../assets/images/portfolio/16.jpg";
 import Image7 from "../../assets/images/portfolio/17.jpg";
 import Image8 from "../../assets/images/portfolio/18.jpg";
 import Image9 from "../../assets/images/portfolio/19.jpg";
-import Logo from "../../assets/images/logo-icon-64.png";
 import "../../assets/scss/themes.scss";
-import { Inter, Raleway } from "next/font/google";
-import "~/assets/css/bootstrap.min.css";
-import "~/assets/css/app.css";
-import "~/assets/css/main.css";
-import "~/assets/css/react-adjustment.css";
-import "../../assets/scss/themes.scss";
+import { getTemplateData } from "../../ApiIntregation/GET/getTemplateData.js";
 
 const images = [
   Image1,
@@ -111,6 +82,7 @@ const Agency = () => {
   const [arrow, setArrow] = useState(false);
   const [iscontact, contactModal] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [templateData, setTemplateData] = useState(null);
 
   const handleScroll = () => {
     if (window.scrollY >= 500) {
@@ -157,11 +129,35 @@ const Agency = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("scroll", windowScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scroll", windowScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Access the URL and hostname
+      const url = window.location.href; // Full URL
+      const host = window.location.hostname; // Hostname (subdomain.domain.com)
+
+      const subdomain = host.split(".")[0]; // Get the subdomain
+
+      const fetchData = async () => {
+        try {
+          const res = await getTemplateData({ subDomain: subdomain });
+          // console.log("Data from API:", res);
+          console.log("Data from API:", res.message);
+          console.log("Data from API:", res.statusCode);
+          if (res && res.statusCode == 200) {
+            setTemplateData(res.message);
+          }
+        } catch (error) {
+          console.error("Error during template selection:", error);
+        }
+      };
+      fetchData();
+    }
   }, []);
 
   return (
@@ -314,7 +310,11 @@ const Agency = () => {
 
         <section
           className="bg-home d-flex align-items-center"
-          style={{ background: `url(${BackgroundImage1.src})` }}
+          style={{
+            backgroundImage: templateData?.homePageImage
+              ? `url(${templateData.homePageImage})`
+              : `url(${BackgroundImage1.src})`,
+          }}
           id="home">
           <div className="bg-overlay bg-linear-gradient-3"></div>
           <Container>
@@ -322,11 +322,24 @@ const Agency = () => {
               <Col>
                 <div className="title-heading">
                   <h1 className="heading text-white title-dark mb-4">
-                    Build your audience <br /> and sell more
+                    {templateData?.homePageHeading ? (
+                      templateData?.homePageHeading
+                    ) : (
+                      <>
+                        Build your audience <br /> and sell more
+                      </>
+                    )}
                   </h1>
                   <p className="para-desc text-white-50">
-                    Launch your campaign and benefit from our expertise on
-                    designing and managing conversion-centered campaigns.
+                    {templateData?.homePageDescription ? (
+                      templateData?.homePageDescription
+                    ) : (
+                      <>
+                        Launch your campaign and benefit from our expertise on
+                        designing and managing conversion-centered bootstrap
+                        pages.
+                      </>
+                    )}
                   </p>
                   <div className="mt-4 pt-2">
                     <Link2 to="#" className="btn btn-primary m-1">
@@ -427,7 +440,16 @@ const Agency = () => {
         </section>
 
         {/* Feature start */}
-        <AgencyFeature />
+        <AgencyFeature
+          FeatureCardDes={
+            templateData?.featurePageDescription
+              ? templateData?.featurePageDescription
+              : ""
+          }
+          FeatureCardData={
+            templateData?.featureCards ? templateData?.featureCards : []
+          }
+        />
 
         <Container className="mt-100 mt-60" id="portfolio">
           <Row className="justify-content-center">
@@ -693,5 +715,4 @@ const Agency = () => {
     </>
   );
 };
-
 export default Agency;

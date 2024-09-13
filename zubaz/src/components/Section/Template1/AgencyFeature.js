@@ -6,7 +6,7 @@ import BackgroudImage from "../../../assets/images/bg/6.jpg";
 /**
  * Agency feature section
  */
-const AgencyFeature = () => {
+const AgencyFeature = ({ FeatureCardDes = "", FeatureCardData = [] }) => {
   const AgencyFeature = [
     {
       id: "1",
@@ -71,28 +71,47 @@ const AgencyFeature = () => {
                     <div className="section-title mb-4 pb-2">
                       <h4 className="title mb-3">Our Features</h4>
                       <p className="text-muted para-desc mb-0">
-                        Launch your campaign and benefit from our expertise on
-                        designing and managing conversion centered bootstrap v5
-                        html page.
+                        {FeatureCardDes.length > 0
+                          ? FeatureCardDes
+                          : "Launch your campaign and benefit from our expertise on designing and managing conversion centered bootstrap v5html page."}
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <Row>
-                  {AgencyFeature.map((item, key) => (
-                    <Col md={6} className="mt-4 pt-2" key={key}>
-                      <div className="features feature-primary">
-                        <div className="feature-icon text-center">
-                          {/* <i className={item.icon + " rounded h4"}></i> */}
+                  {FeatureCardData &&
+                    FeatureCardData.map((item, key) => (
+                      <Col md={6} className="mt-4 pt-2" key={key}>
+                        <div className="features feature-primary">
+                          <div className="feature-icon text-center">
+                            {/* <i className={item.icon + " rounded h4"}></i> */}
+                          </div>
+                          <div className="flex-1 mt-4">
+                            <h5 className="mt-0">{item.name}</h5>
+                            <p className="text-muted mb-0">
+                              {item.description}
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex-1 mt-4">
-                          <h5 className="mt-0">{item.title}</h5>
-                          <p className="text-muted mb-0">{item.description}</p>
+                      </Col>
+                    ))}
+                  {!FeatureCardData &&
+                    AgencyFeature.map((item, key) => (
+                      <Col md={6} className="mt-4 pt-2" key={key}>
+                        <div className="features feature-primary">
+                          <div className="feature-icon text-center">
+                            {/* <i className={item.icon + " rounded h4"}></i> */}
+                          </div>
+                          <div className="flex-1 mt-4">
+                            <h5 className="mt-0">{item.title}</h5>
+                            <p className="text-muted mb-0">
+                              {item.description}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                  ))}
+                      </Col>
+                    ))}
                 </Row>
               </div>
             </Col>

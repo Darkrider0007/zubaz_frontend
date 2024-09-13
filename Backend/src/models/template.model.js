@@ -96,15 +96,12 @@ const templateSchema = new Schema({
   },
   homePageHeading: {
     type: String,
-    required: true,
   },
   homePageDescription: {
     type: String,
-    required: true,
   },
   featurePageDescription: {
     type: String,
-    required: true,
   },
   featureCards: [FeatureCardSchema],
   projectCards: [ProjectCardSchema],
@@ -113,7 +110,6 @@ const templateSchema = new Schema({
   companies: [CompanySchema],
   newsDescription: {
     type: String,
-    required: true,
   },
   newsCards: [NewsCardSchema],
   contactUs: {
