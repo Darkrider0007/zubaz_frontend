@@ -89,6 +89,7 @@ const templateSchema = new Schema({
   subdomain: {
     type: String,
     required: true,
+    unique: true,
   },
   homePageImage: {
     type: String,

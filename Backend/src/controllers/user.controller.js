@@ -1,3 +1,4 @@
+import Template from "../models/template.model.js";
 import User from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -140,6 +141,14 @@ const selectTemplate = asyncHandler(async (req, res) => {
 
     if (!userData) {
       throw new ApiError(404, "User not found");
+    }
+
+    const subDomainInUser = await User.findOne({ subDomain });
+    const subDomainInTemplate = await Template.findOne({ subDomain });
+
+    if (subDomainInUser || subDomainInTemplate) {
+      throw new ApiError(400, "Subdomain already in use");
+      return;
     }
 
     userData.template = template;
